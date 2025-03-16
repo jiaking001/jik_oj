@@ -4,27 +4,23 @@ option go_package ="./question";
 
 package question;
 
-// ------------------------------------ 
-// Messages
-// ------------------------------------ 
-
-//--------------------------------题目--------------------------------
+// Question 表示题目信息
 message Question {
-  int64 id = 1; //id
-  string title = 2; //标题
-  string content = 3; //内容
-  string tags = 4; //标签列表（json 数组）
-  string answer = 5; //题目答案
-  int64 submitNum = 6; //题目提交数
-  int64 acceptedNum = 7; //题目通过数
-  string judgeCase = 8; //判题用例（json 数组）
-  string judgeConfig = 9; //判题配置（json 对象）
-  int64 thumbNum = 10; //点赞数
-  int64 favourNum = 11; //收藏数
-  int64 userId = 12; //创建用户 id
-  int64 createTime = 13; //创建时间
-  int64 updateTime = 14; //更新时间
-  int64 isDelete = 15; //是否删除
+  int64 id = 1; // ID
+  string title = 2; // 标题
+  string content = 3; // 内容
+  string tags = 4; // 标签列表（JSON 数组）
+  string answer = 5; // 题目答案
+  int64 submitNum = 6; // 题目提交数
+  int64 acceptedNum = 7; // 题目通过数
+  string judgeCase = 8; // 判题用例（JSON 数组）
+  string judgeConfig = 9; // 判题配置（JSON 对象）
+  int64 thumbNum = 10; // 点赞数
+  int64 favourNum = 11; // 收藏数
+  int64 userId = 12; // 创建用户 ID
+  int64 createTime = 13; // 创建时间
+  int64 updateTime = 14; // 更新时间
+  int64 isDelete = 15; // 是否删除
 }
 
 message AddQuestionReq {
@@ -93,18 +89,10 @@ message SearchQuestionResp {
   repeated Question question = 2; //question
 }
 
-
-
-// ------------------------------------ 
-// Rpc Func
-// ------------------------------------ 
-
-service question{ 
-
-	 //-----------------------题目----------------------- 
-	 rpc AddQuestion(AddQuestionReq) returns (AddQuestionResp); 
-	 rpc UpdateQuestion(UpdateQuestionReq) returns (UpdateQuestionResp); 
-	 rpc DelQuestion(DelQuestionReq) returns (DelQuestionResp); 
-	 rpc GetQuestionById(GetQuestionByIdReq) returns (GetQuestionByIdResp); 
+service question{
+	 rpc AddQuestion(AddQuestionReq) returns (AddQuestionResp);
+	 rpc UpdateQuestion(UpdateQuestionReq) returns (UpdateQuestionResp);
+	 rpc DelQuestion(DelQuestionReq) returns (DelQuestionResp);
+	 rpc GetQuestionById(GetQuestionByIdReq) returns (GetQuestionByIdResp);
 	 rpc SearchQuestion(SearchQuestionReq) returns (SearchQuestionResp);
 }

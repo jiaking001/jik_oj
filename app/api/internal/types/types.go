@@ -13,6 +13,10 @@ type GetLoginUserResp struct {
 	UserRole    string `json:"userRole,optional"`    // 用户角色
 }
 
+type GetQuestionByIdReq struct {
+	Id int `form:"id"` // 题目ID
+}
+
 type JudgeConfig struct {
 	MemoryLimit int `json:"memoryLimit,optional"` // 内存限制（单位：MB）
 	StackLimit  int `json:"stackLimit,optional"`  // 栈空间限制（单位：KB）

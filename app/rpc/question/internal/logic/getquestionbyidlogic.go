@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"app/rpc/question/model"
 	"context"
 
 	"app/rpc/question/internal/svc"
@@ -24,7 +25,25 @@ func NewGetQuestionByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetQuestionByIdLogic) GetQuestionById(in *question.GetQuestionByIdReq) (*question.GetQuestionByIdResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &question.GetQuestionByIdResp{}, nil
+	questions, err := model.GetById(l.ctx, int(in.Id))
+	if err != nil {
+		return nil, err
+	}
+	return &question.GetQuestionByIdResp{
+		Question: &question.Question{
+			Id:          int64(questions.ID),
+			Title:       questions.Title,
+			Content:     questions.Content,
+			Tags:        questions.Tags,
+			Answer:      questions.Answer,
+			SubmitNum:   int64(questions.SubmitNum),
+			AcceptedNum: int64(questions.AcceptedNum),
+			JudgeCase:   questions.JudgeCase,
+			JudgeConfig: questions.JudgeConfig,
+			ThumbNum:    int64(questions.ThumbNum),
+			FavourNum:   int64(questions.FavourNum),
+			UserId:      int64(questions.UserId),
+			IsDelete:    int64(questions.IsDelete),
+		},
+	}, nil
 }

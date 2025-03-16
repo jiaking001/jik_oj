@@ -15,6 +15,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 根据题目id获取题目详情
+				Method:  http.MethodGet,
+				Path:    "/api/question/get/vo",
+				Handler: getQuestionByIdHandler(serverCtx),
+			},
+			{
 				// 查询题目详情
 				Method:  http.MethodPost,
 				Path:    "/api/question/list/page",

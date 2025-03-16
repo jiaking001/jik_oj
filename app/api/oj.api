@@ -197,6 +197,11 @@ type PageQuestionResq {
 	total            int         `json:"total,optional"` // 总记录数
 }
 
+// 根据题目id获取题目详情
+type GetQuestionByIdReq {
+	id int `form:"id"` // 题目ID
+}
+
 //定义了一个服务叫oj-api
 service oj-api {
 	//获取接口的名字叫用户登录
@@ -222,5 +227,10 @@ service oj-api {
 	@doc "查询题目详情"
 	@handler getQuestionDetail
 	post /api/question/list/page (QuestionQueryRequest) returns (PageQuestionResq)
+
+	// 根据题目id获取题目详情
+	@doc "根据题目id获取题目详情"
+	@handler getQuestionById
+	get /api/question/get/vo (GetQuestionByIdReq) returns (QuestionVO)
 }
 
