@@ -1,0 +1,45 @@
+services:
+  user-db:
+    image: mysql:8.0.31-debian
+    hostname: user-db
+    container_name: jik_oj_db
+    ports:
+      - 3380:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=jik_oj
+    volumes:
+       - ./data/mysql/user:/var/lib/mysql
+       - ./conf/mysql/conf.d:/etc/mysql/conf.d
+
+  cache-redis:
+    image: redis:6-alpine
+    hostname: cache-redis
+    container_name: jik_oj_rdb
+    volumes:
+       - ./data/redis/cache/:/data
+       - ./conf/redis/cache/redis.conf:/etc/redis/redis.conf
+    ports:
+      - 6350:6379
+    command: ["redis-server","/etc/redis/redis.conf"]
+
+  etcd:
+    image: bitnami/etcd:latest
+    container_name: jik_oj_etcd
+    ports:
+      - "2370:2379"  # etcd 客户端端口
+      - "2371:2380"  # etcd 节点间通信端口
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ENABLE_V2=true
+    volumes:
+      - etcd_data:/bitnami/etcd
+    networks:
+      - etcd_network
+
+volumes:
+  etcd_data:
+
+networks:
+  etcd_network:

@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+option go_package ="./";
+
+package user;
+
+// ------------------------------------ 
+// Messages
+// ------------------------------------ 
+
+//--------------------------------用户--------------------------------
+message User {
+  int64 id = 1; //id
+  string userAccount = 2; //账号
+  string userPassword = 3; //密码
+  string unionId = 4; //微信开放平台id
+  string mpOpenId = 5; //公众号openId
+  string userName = 6; //用户昵称
+  string userAvatar = 7; //用户头像
+  string userProfile = 8; //用户简介
+  string userRole = 9; //用户角色：user/admin/ban
+  int64 createTime = 10; //创建时间
+  int64 updateTime = 11; //更新时间
+  int64 isDelete = 12; //是否删除
+}
+
+message AddUserReq {
+  string userAccount = 1; //账号
+  string userPassword = 2; //密码
+  string unionId = 3; //微信开放平台id
+  string mpOpenId = 4; //公众号openId
+  string userName = 5; //用户昵称
+  string userAvatar = 6; //用户头像
+  string userProfile = 7; //用户简介
+  string userRole = 8; //用户角色：user/admin/ban
+  int64 createTime = 9; //创建时间
+  int64 updateTime = 10; //更新时间
+  int64 isDelete = 11; //是否删除
+}
+
+message AddUserResp {
+}
+
+message UpdateUserReq {
+  int64 id = 1; //id
+  string userAccount = 2; //账号
+  string userPassword = 3; //密码
+  string unionId = 4; //微信开放平台id
+  string mpOpenId = 5; //公众号openId
+  string userName = 6; //用户昵称
+  string userAvatar = 7; //用户头像
+  string userProfile = 8; //用户简介
+  string userRole = 9; //用户角色：user/admin/ban
+  int64 createTime = 10; //创建时间
+  int64 updateTime = 11; //更新时间
+  int64 isDelete = 12; //是否删除
+}
+
+message UpdateUserResp {
+}
+
+message DelUserReq {
+  int64 id = 1; //id
+}
+
+message DelUserResp {
+}
+
+message GetUserByIdReq {
+  int64 id = 1; //id
+}
+
+message GetUserByIdResp {
+  User user = 1; //user
+}
+
+message SearchUserReq {
+  int64 page = 1; //page
+  int64 limit = 2; //limit
+  int64 id = 3; //id
+  string userAccount = 4; //账号
+  string userPassword = 5; //密码
+  string unionId = 6; //微信开放平台id
+  string mpOpenId = 7; //公众号openId
+  string userName = 8; //用户昵称
+  string userAvatar = 9; //用户头像
+  string userProfile = 10; //用户简介
+  string userRole = 11; //用户角色：user/admin/ban
+  int64 createTime = 12; //创建时间
+  int64 updateTime = 13; //更新时间
+  int64 isDelete = 14; //是否删除
+}
+
+message SearchUserResp {
+  repeated User user = 1; //user
+}
+
+message LoginReq {
+  string userAccount = 1; //账号
+  string userPassword = 2; //密码
+}
+
+// 用户登录响应数据
+message LoginUserVO {
+  int64 id = 1;                   // 用户 ID
+  string user_account = 2;        // 用户账号
+  string user_name = 3;           // 用户名
+  string user_profile = 4;        // 用户简介
+  string user_role = 5;           // 用户角色
+  string create_time = 6;         // 创建时间
+  string update_time = 7;         // 更新时间
+  string user_avatar = 8;         // 用户头像
+}
+
+// 登录响应
+message LoginResp {
+  int32 code = 1;                 // 状态码
+  string message = 2;             // 消息
+  LoginUserVO data = 3;           // 用户数据
+}
+
+// ------------------------------------ 
+// Rpc Func
+// ------------------------------------ 
+
+service user{ 
+
+	 //-----------------------用户----------------------- 
+	 rpc AddUser(AddUserReq) returns (AddUserResp); 
+	 rpc UpdateUser(UpdateUserReq) returns (UpdateUserResp); 
+	 rpc DelUser(DelUserReq) returns (DelUserResp); 
+	 rpc GetUserById(GetUserByIdReq) returns (GetUserByIdResp); 
+	 rpc SearchUser(SearchUserReq) returns (SearchUserResp); 
+   rpc Login(LoginReq) returns (LoginResp);
+}

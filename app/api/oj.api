@@ -1,0 +1,226 @@
+// api语法版本
+syntax = "v2"
+
+info (
+	author: "jiaking"
+)
+
+// 用户登录请求
+type LoginReq {
+	userAccount  string `json:"userAccount"`
+	userPassword string `json:"userPassword"`
+}
+
+// 用户登录响应
+type LoginResp {
+	ID          int    `json:"id,optional"` // 用户ID
+	UserAccount string `json:"userAccount,optional"` // 用户账号
+	UserName    string `json:"userName,optional"` // 用户名
+	UserProfile string `json:"userProfile,optional"` // 用户简介
+	UserRole    string `json:"userRole,optional"` // 用户角色
+	CreateTime  string `json:"createTime,optional"` // 创建时间
+	UpdateTime  string `json:"updateTime,optional"` // 更新时间
+	UserAvatar  string `json:"userAvatar,optional"` // 用户头像
+}
+
+// 获取用户登录信息响应
+type GetLoginUserResp {
+	createTime  string `json:"createTime,optional"` // 创建时间
+	id          int64  `json:"id,optional"` // 用户ID
+	updateTime  string `json:"updateTime,optional"` // 更新时间
+	userAvatar  string `json:"userAvatar,optional"` // 用户头像
+	userName    string `json:"userName,optional"` // 用户名
+	userProfile string `json:"userProfile,optional"` // 用户简介
+	userRole    string `json:"userRole,optional"` // 用户角色
+}
+
+// 排序项
+type OrderItem {
+	column string `json:"column,optional"` // 排序字段
+	asc    bool   `json:"asc,optional"` // 是否升序
+}
+
+// 判题配置
+type JudgeConfig {
+	memoryLimit int `json:"memoryLimit,optional"` // 内存限制（单位：MB）
+	stackLimit  int `json:"stackLimit,optional"` // 栈空间限制（单位：KB）
+	timeLimit   int `json:"timeLimit,optional"` // 时间限制（单位：ms）
+}
+
+// 用户信息视图对象
+type UserVO {
+	createTime  string `json:"createTime,optional"` // 创建时间
+	id          int    `json:"id,optional"` // 用户ID
+	userAvatar  string `json:"userAvatar,optional"` // 用户头像
+	userName    string `json:"userName,optional"` // 用户名
+	userProfile string `json:"userProfile,optional"` // 用户简介
+	userRole    string `json:"userRole,optional"` // 用户角色
+}
+
+// 单个问题的视图对象
+type QuestionVO {
+	acceptedNum int         `json:"acceptedNum,optional"` // 通过次数
+	content     string      `json:"content,optional"` // 问题内容
+	createTime  string      `json:"createTime,optional"` // 创建时间
+	favourNum   int         `json:"favourNum,optional"` // 收藏次数
+	id          int         `json:"id,optional"` // 问题ID
+	judgeConfig JudgeConfig `json:"judgeConfig,optional"` // 判题配置
+	submitNum   int         `json:"submitNum,optional"` // 提交次数
+	tags        []string    `json:"tags,optional"` // 问题标签
+	thumbNum    int         `json:"thumbNum,optional"` // 点赞次数
+	title       string      `json:"title,optional"` // 问题标题
+	updateTime  string      `json:"updateTime,optional"` // 更新时间
+	userId      int         `json:"userId,optional"` // 用户ID
+	userVO      UserVO      `json:"userVO,optional"` // 用户信息
+}
+
+// 查询问题列表请求
+type QuestionQueryReq {
+	answer    string   `json:"answer,optional"` // 答案
+	content   string   `json:"content,optional"` // 内容
+	current   int      `json:"current,optional"` // 当前页码
+	id        int      `json:"id,optional"` // 问题ID
+	pageSize  int      `json:"pageSize,optional"` // 每页大小
+	sortField string   `json:"sortField,optional"` // 排序字段
+	sortOrder string   `json:"sortOrder,optional"` // 排序顺序
+	tags      []string `json:"tags,optional"` // 标签
+	title     string   `json:"title,optional"` // 标题
+	userId    int      `json:"userId,optional"` // 用户ID
+}
+
+// 查询问题列表响应
+type QuestionListResp {
+	countId          string       `json:"countId,optional"` // 计数ID
+	current          int          `json:"current,optional"` // 当前页码
+	maxLimit         int          `json:"maxLimit,optional"` // 最大限制
+	optimizeCountSql bool         `json:"optimizeCountSql,optional"` // 是否优化计数SQL
+	orders           []OrderItem  `json:"orders,optional"` // 排序项
+	pages            int          `json:"pages,optional"` // 总页数
+	records          []QuestionVO `json:"records,optional"` // 问题列表
+	searchCount      bool         `json:"searchCount,optional"` // 是否搜索计数
+	size             int          `json:"size,optional"` // 每页大小
+	total            int          `json:"total,optional"` // 总记录数
+}
+
+// 判题信息
+type JudgeInfo {
+	memory  int    `json:"memory,optional"` // 内存使用（单位：MB）
+	message string `json:"message,optional"` // 判题结果信息
+	time    int    `json:"time,optional"` // 时间使用（单位：ms）
+}
+
+// 提交记录的视图对象
+type QuestionSubmitVO {
+	code       string     `json:"code,optional"` // 提交代码
+	createTime string     `json:"createTime,optional"` // 创建时间
+	id         int        `json:"id,optional"` // 提交记录ID
+	judgeInfo  JudgeInfo  `json:"judgeInfo,optional"` // 判题信息
+	language   string     `json:"language,optional"` // 编程语言
+	questionId int        `json:"questionId,optional"` // 题目ID
+	questionVO QuestionVO `json:"questionVO,optional"` // 题目信息
+	status     int        `json:"status,optional"` // 提交状态
+	updateTime string     `json:"updateTime,optional"` // 更新时间
+	userId     int        `json:"userId,optional"` // 用户ID
+	userVO     UserVO     `json:"userVO,optional"` // 用户信息
+}
+
+// 查询题目提交记录的请求
+type QuestionSubmitQueryRequest {
+	current    int    `json:"current,optional"` // 当前页码
+	language   string `json:"language,optional"` // 编程语言
+	pageSize   int    `json:"pageSize,optional"` // 每页大小
+	questionId int    `json:"questionId,optional"` // 题目ID
+	sortField  string `json:"sortField,optional"` // 排序字段
+	sortOrder  string `json:"sortOrder,optional"` // 排序顺序
+	status     int    `json:"status,optional"` // 提交状态
+	userId     int    `json:"userId,optional"` // 用户ID
+}
+
+// 分页查询题目提交记录的响应
+type PageQuestionSubmitVOResp {
+	countId          string             `json:"countId,optional"` // 计数ID
+	current          int                `json:"current,optional"` // 当前页码
+	maxLimit         int                `json:"maxLimit,optional"` // 最大限制
+	optimizeCountSql bool               `json:"optimizeCountSql,optional"` // 是否优化计数SQL
+	orders           []OrderItem        `json:"orders,optional"` // 排序项
+	pages            int                `json:"pages,optional"` // 总页数
+	records          []QuestionSubmitVO `json:"records,optional"` // 提交记录列表
+	searchCount      bool               `json:"searchCount,optional"` // 是否搜索计数
+	size             int                `json:"size,optional"` // 每页大小
+	total            int                `json:"total,optional"` // 总记录数
+}
+
+// 题目信息
+type Question {
+	acceptedNum int    `json:"acceptedNum,optional"` // 通过次数
+	answer      string `json:"answer,optional"` // 答案
+	content     string `json:"content,optional"` // 题目内容
+	createTime  string `json:"createTime,optional"` // 创建时间
+	favourNum   int    `json:"favourNum,optional"` // 收藏次数
+	id          int    `json:"id,optional"` // 题目ID
+	isDelete    int    `json:"isDelete,optional"` // 是否删除（标记）
+	judgeCase   string `json:"judgeCase,optional"` // 判题用例
+	judgeConfig string `json:"judgeConfig,optional"` // 判题配置
+	submitNum   int    `json:"submitNum,optional"` // 提交次数
+	tags        string `json:"tags,optional"` // 标签（逗号分隔）
+	thumbNum    int    `json:"thumbNum,optional"` // 点赞次数
+	title       string `json:"title,optional"` // 题目标题
+	updateTime  string `json:"updateTime,optional"` // 更新时间
+	userId      int    `json:"userId,optional"` // 用户ID
+}
+
+// 查询题目请求
+type QuestionQueryRequest {
+	answer    string   `json:"answer,optional"` // 答案
+	content   string   `json:"content,optional"` // 题目内容
+	current   int      `json:"current,optional"` // 当前页码
+	id        int      `json:"id,optional"` // 题目ID
+	pageSize  int      `json:"pageSize,optional"` // 每页大小
+	sortField string   `json:"sortField,optional"` // 排序字段
+	sortOrder string   `json:"sortOrder,optional"` // 排序顺序
+	tags      []string `json:"tags,optional"` // 标签列表
+	title     string   `json:"title,optional"` // 题目标题
+	userId    int      `json:"userId,optional"` // 用户ID
+}
+
+// 分页查询题目列表的响应
+type PageQuestionResq {
+	countId          string      `json:"countId,optional"` // 计数ID
+	current          int         `json:"current,optional"` // 当前页码
+	maxLimit         int         `json:"maxLimit,optional"` // 最大限制
+	optimizeCountSql bool        `json:"optimizeCountSql,optional"` // 是否优化计数SQL
+	orders           []OrderItem `json:"orders,optional"` // 排序项
+	pages            int         `json:"pages,optional"` // 总页数
+	records          []Question  `json:"records,optional"` // 题目列表
+	searchCount      bool        `json:"searchCount,optional"` // 是否搜索计数
+	size             int         `json:"size,optional"` // 每页大小
+	total            int         `json:"total,optional"` // 总记录数
+}
+
+//定义了一个服务叫oj-api
+service oj-api {
+	//获取接口的名字叫用户登录
+	@doc "用户登录"
+	//对应的hanlder即controller是login
+	@handler login
+	//请求方法是post，路径是/api/user/login，参数是LoginReq，返回值是LoginResp
+	post /api/user/login (LoginReq) returns (LoginResp)
+
+	@doc "获取用户登录信息"
+	@handler getLoginUser
+	get /api/user/get/login returns (GetLoginUserResp)
+
+	@doc "获取题目列表"
+	@handler getQuestionListPageVo
+	post /api/question/list/page/vo (QuestionQueryReq) returns (QuestionListResp)
+
+	@doc "查询题目提交记录"
+	@handler getQuestionQuestionSubmitListPage
+	post /api/question/question_submit/list/page (QuestionSubmitQueryRequest) returns (PageQuestionSubmitVOResp)
+
+	// 查询题目详情
+	@doc "查询题目详情"
+	@handler getQuestionDetail
+	post /api/question/list/page (QuestionQueryRequest) returns (PageQuestionResq)
+}
+
