@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+option go_package ="./question";
+
+package question;
+
+// ------------------------------------ 
+// Messages
+// ------------------------------------ 
+
+//--------------------------------题目--------------------------------
+message Question {
+  int64 id = 1; //id
+  string title = 2; //标题
+  string content = 3; //内容
+  string tags = 4; //标签列表（json 数组）
+  string answer = 5; //题目答案
+  int64 submitNum = 6; //题目提交数
+  int64 acceptedNum = 7; //题目通过数
+  string judgeCase = 8; //判题用例（json 数组）
+  string judgeConfig = 9; //判题配置（json 对象）
+  int64 thumbNum = 10; //点赞数
+  int64 favourNum = 11; //收藏数
+  int64 userId = 12; //创建用户 id
+  int64 createTime = 13; //创建时间
+  int64 updateTime = 14; //更新时间
+  int64 isDelete = 15; //是否删除
+}
+
+message AddQuestionReq {
+  string title = 1; //标题
+  string content = 2; //内容
+  string tags = 3; //标签列表（json 数组）
+  string answer = 4; //题目答案
+  int64 submitNum = 5; //题目提交数
+  int64 acceptedNum = 6; //题目通过数
+  string judgeCase = 7; //判题用例（json 数组）
+  string judgeConfig = 8; //判题配置（json 对象）
+  int64 thumbNum = 9; //点赞数
+  int64 favourNum = 10; //收藏数
+  int64 userId = 11; //创建用户 id
+  int64 createTime = 12; //创建时间
+  int64 updateTime = 13; //更新时间
+  int64 isDelete = 14; //是否删除
+}
+
+message AddQuestionResp {
+}
+
+message UpdateQuestionReq {
+  int64 id = 1; //id
+  string title = 2; //标题
+  string content = 3; //内容
+  string tags = 4; //标签列表（json 数组）
+  string answer = 5; //题目答案
+  int64 submitNum = 6; //题目提交数
+  int64 acceptedNum = 7; //题目通过数
+  string judgeCase = 8; //判题用例（json 数组）
+  string judgeConfig = 9; //判题配置（json 对象）
+  int64 thumbNum = 10; //点赞数
+  int64 favourNum = 11; //收藏数
+  int64 userId = 12; //创建用户 id
+  int64 createTime = 13; //创建时间
+  int64 updateTime = 14; //更新时间
+  int64 isDelete = 15; //是否删除
+}
+
+message UpdateQuestionResp {
+}
+
+message DelQuestionReq {
+  int64 id = 1; //id
+}
+
+message DelQuestionResp {
+}
+
+message GetQuestionByIdReq {
+  int64 id = 1; //id
+}
+
+message GetQuestionByIdResp {
+  Question question = 1; //question
+}
+
+message SearchQuestionReq {
+  int64 page = 1; //page
+  int64 limit = 2; //limit
+}
+
+message SearchQuestionResp {
+  int64 total = 1; // 总记录数
+  repeated Question question = 2; //question
+}
+
+
+
+// ------------------------------------ 
+// Rpc Func
+// ------------------------------------ 
+
+service question{ 
+
+	 //-----------------------题目----------------------- 
+	 rpc AddQuestion(AddQuestionReq) returns (AddQuestionResp); 
+	 rpc UpdateQuestion(UpdateQuestionReq) returns (UpdateQuestionResp); 
+	 rpc DelQuestion(DelQuestionReq) returns (DelQuestionResp); 
+	 rpc GetQuestionById(GetQuestionByIdReq) returns (GetQuestionByIdResp); 
+	 rpc SearchQuestion(SearchQuestionReq) returns (SearchQuestionResp);
+}

@@ -1,2 +1,3 @@
 /docker-compose/conf/
 /docker-compose/data/
+/rpc/question/.env
